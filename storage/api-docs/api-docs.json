@@ -1,0 +1,315 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "APIs For Thrift Store",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/notebook/store": {
+            "post": {
+                "tags": [
+                    "Notes"
+                ],
+                "summary": "Create Note",
+                "operationId": "f92662758205ac97205f30554fe06f60",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "fio": {
+                                                "type": "string"
+                                            },
+                                            "company": {
+                                                "type": "string"
+                                            },
+                                            "phone": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "birthdate": {
+                                                "type": "string"
+                                            },
+                                            "image": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "fio": "Ivanov I.I.",
+                                    "company": "BBC",
+                                    "phone": "89999876543210",
+                                    "email": "email@mail.ru",
+                                    "birthdate": "1990",
+                                    "image": 0
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "fio": {
+                                            "type": "string",
+                                            "example": "fio"
+                                        },
+                                        "company": {
+                                            "type": "string",
+                                            "example": "company"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "phone"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "email"
+                                        },
+                                        "birthdate": {
+                                            "type": "string",
+                                            "example": "birthdate"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "fail"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/notebook/{id}": {
+            "get": {
+                "tags": [
+                    "Notes"
+                ],
+                "summary": "Get Detail Notes",
+                "operationId": "2d15187bb08ff257534f59605e84d401",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "fio": {
+                                            "type": "string",
+                                            "example": "fio"
+                                        },
+                                        "company": {
+                                            "type": "string",
+                                            "example": "company"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "phone"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "email"
+                                        },
+                                        "birthdate": {
+                                            "type": "string",
+                                            "example": "birthdate"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/notebook/gets": {
+            "get": {
+                "tags": [
+                    "All notes"
+                ],
+                "summary": " all notes",
+                "description": "Get",
+                "operationId": "examplesAll",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Delete Note",
+                "operationId": "481d87a13b7516bde50b8a6fe3218881",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "delete todo success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "requestBodies": {
+            "RegistrationRequest": {
+                "description": "Registration request body",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "required": [
+                                "fio",
+                                "company",
+                                "phone",
+                                "email",
+                                "birthday",
+                                "image"
+                            ],
+                            "properties": {
+                                "fio": {
+                                    "type": "string",
+                                    "example": "Ivanov I.I."
+                                },
+                                "company": {
+                                    "type": "string",
+                                    "example": "BBC"
+                                },
+                                "phone": {
+                                    "type": "string",
+                                    "example": "phone"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "example": "email"
+                                },
+                                "birthday": {
+                                    "type": "string",
+                                    "example": "birthday"
+                                },
+                                "image": {
+                                    "type": "integer",
+                                    "example": "0"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
