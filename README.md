@@ -6,12 +6,19 @@
 (Должны быть установленны docker и docker-composer)
 
 2. Зайти в контейнер project_app командой docker exec -it project_app bash и создать зависимости командой composer install. Создать файл .env и в нём прописать коннект к базе данный в виде 
+
 DB_CONNECTION=mysql
+
 DB_HOST=db
+
 DB_PORT=3306
+
 DB_DATABASE=larnote
+
 DB_USERNAME=root
+
 DB_PASSWORD=root 
+
 Пример этого файла в .env.examples нужно только прописать параметры
 3. В контейнере project_app запустить laravel миграции командой php artisan migrate:refresh
 4. прописать адрес localhosta в файле config/l5-swagger.php
