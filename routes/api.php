@@ -19,9 +19,9 @@ use App\Http\Controllers\NotebookController;
 //    return $request->user();
 //});
 
-//Route::group(["prefix"=>"v1"],function(){
-    Route::post("/v1/notebook/store",[\App\Http\Controllers\NotebookController::class,"store"]);
-    Route::get("/v1/notebook/gets",[\App\Http\Controllers\NotebookController::class,"gets"]);
-    Route::get("/v1/notebook/{id}",[\App\Http\Controllers\NotebookController::class,"get"]);
-    Route::delete("/v1//delete/{id}",[NotebookController::class,"delete"]);
-//});
+Route::group(["prefix"=>"v1"],function(){
+    Route::match(['get','post'],"/notebook/store",[NotebookController::class,"store"]);
+    Route::match(['get','post'],"/notebook/gets",[NotebookController::class,"gets"]);
+    Route::match(['get','post'],"/notebook/{id}",[NotebookController::class,"get"]);
+    Route::delete("/delete/{id}",[NotebookController::class,"delete"]);
+});

@@ -12,16 +12,17 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
  *    description="Registration request body",
  *       @OA\JsonContent(
  *        type="object",
- *        required={"fio", "company","phone","email","birthday", "image"},
+ *        required={"fio","phone","email"},
  *        @OA\Property(property="fio", type="string", example="Ivanov I.I."),
- *        @OA\Property(property="company", type="string", example="BBC"),
- *        @OA\Property(property="phone", type="string", example="phone"),
- *        @OA\Property(property="email", type="string", example="email"),
- *        @OA\Property(property="birthday", type="string", example="birthday"),
- *        @OA\Property(property="image", type="integer", example="0"),
+ *        @OA\Property(property="company", type="string", example="ExampleCo"),
+ *        @OA\Property(property="phone", type="string", example="89991111111"),
+ *        @OA\Property(property="email", type="string", example="example@mail.ru"),
+ *        @OA\Property(property="birthdate", type="string", example="01.01.1990"),
+ *        @OA\Property(property="image", type="string", example="photo.png"),
  *    )
  * )
  */
+
 class Notebook extends Model
 {
     use HasFactory;
@@ -66,11 +67,11 @@ class Notebook extends Model
     }
 
     /**
-     * @return Notebook[]|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection
+     * @return array
      */
-    public function getsNote()
+    public function getsNote(): array
     {
-        $todos = $this::all();
+        $todos = $this::all()->toArray();
         return $todos;
     }
 
@@ -86,6 +87,4 @@ class Notebook extends Model
         }
         return $note->delete();
     }
-
-
 }

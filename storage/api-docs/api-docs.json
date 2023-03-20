@@ -1,59 +1,120 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "APIs For Thrift Store",
+        "title": "Laravel OpenApi Demo Documentation",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "kuk.aka@mail.ru"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost:8876",
+            "description": "Demo API Server"
+        }
+    ],
     "paths": {
         "/api/v1/notebook/store": {
             "post": {
                 "tags": [
-                    "Notes"
+                    "Add"
                 ],
                 "summary": "Create Note",
                 "operationId": "f92662758205ac97205f30554fe06f60",
                 "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "": {
-                                        "properties": {
-                                            "fio": {
-                                                "type": "string"
-                                            },
-                                            "company": {
-                                                "type": "string"
-                                            },
-                                            "phone": {
-                                                "type": "string"
-                                            },
-                                            "email": {
-                                                "type": "string"
-                                            },
-                                            "birthdate": {
-                                                "type": "string"
-                                            },
-                                            "image": {
-                                                "type": "string"
-                                            }
+                    "$ref": "#/components/requestBodies/RegistrationRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
                                         },
-                                        "type": "object"
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "fio": "Ivanov I.I.",
-                                    "company": "BBC",
-                                    "phone": "89999876543210",
-                                    "email": "email@mail.ru",
-                                    "birthdate": "1990",
-                                    "image": 0
+                                        "fio": {
+                                            "type": "string",
+                                            "example": "Ivanov I.I"
+                                        },
+                                        "company": {
+                                            "type": "string",
+                                            "example": "SuperCompany"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "891611111111"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "example@email.ru"
+                                        },
+                                        "birthdate": {
+                                            "type": "string",
+                                            "example": "01.01.1990"
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "example": "photo.png"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "fail"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     }
-                },
+                }
+            }
+        },
+        "/api/v1/notebook/{id}": {
+            "get": {
+                "tags": [
+                    "Select note"
+                ],
+                "summary": " Detail note from get",
+                "description": "Выборка методом  get",
+                "operationId": "2d15187bb08ff257534f59605e84d401",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "success",
@@ -98,33 +159,16 @@
                                 }
                             }
                         }
-                    },
-                    "400": {
-                        "description": "invalid",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string",
-                                            "example": "fail"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
                     }
                 }
-            }
-        },
-        "/api/v1/notebook/{id}": {
-            "get": {
+            },
+            "post": {
                 "tags": [
-                    "Notes"
+                    "Select note"
                 ],
-                "summary": "Get Detail Notes",
-                "operationId": "2d15187bb08ff257534f59605e84d401",
+                "summary": " Detail note from post",
+                "description": "Выборка метедом post",
+                "operationId": "ababe2e95fe318c16de86a9e77a43418",
                 "parameters": [
                     {
                         "name": "id",
@@ -188,7 +232,7 @@
                 "tags": [
                     "All notes"
                 ],
-                "summary": " all notes",
+                "summary": " All notes from get",
                 "description": "Get",
                 "operationId": "examplesAll",
                 "parameters": [
@@ -196,7 +240,8 @@
                         "name": "page",
                         "in": "query",
                         "description": "The page number",
-                        "required": false,
+                        "required": true,
+                        "explode": true,
                         "schema": {
                             "type": "integer"
                         }
@@ -204,23 +249,46 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "Everything is fine",
                         "content": {
                             "application/json": {}
                         }
                     }
-                },
-                "security": [
+                }
+            },
+            "post": {
+                "tags": [
+                    "All notes"
+                ],
+                "summary": " All notes from post",
+                "description": "Post",
+                "operationId": "examplesAllPost",
+                "parameters": [
                     {
-                        "api_key": []
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page number",
+                        "required": true,
+                        "explode": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
             }
         },
         "/api/v1/delete/{id}": {
             "delete": {
                 "tags": [
-                    "Note"
+                    "Delete"
                 ],
                 "summary": "Delete Note",
                 "operationId": "481d87a13b7516bde50b8a6fe3218881",
@@ -264,11 +332,8 @@
                         "schema": {
                             "required": [
                                 "fio",
-                                "company",
                                 "phone",
-                                "email",
-                                "birthday",
-                                "image"
+                                "email"
                             ],
                             "properties": {
                                 "fio": {
@@ -277,38 +342,29 @@
                                 },
                                 "company": {
                                     "type": "string",
-                                    "example": "BBC"
+                                    "example": "ExampleCo"
                                 },
                                 "phone": {
                                     "type": "string",
-                                    "example": "phone"
+                                    "example": "89991111111"
                                 },
                                 "email": {
                                     "type": "string",
-                                    "example": "email"
+                                    "example": "example@mail.ru"
                                 },
-                                "birthday": {
+                                "birthdate": {
                                     "type": "string",
-                                    "example": "birthday"
+                                    "example": "01.01.1990"
                                 },
                                 "image": {
-                                    "type": "integer",
-                                    "example": "0"
+                                    "type": "string",
+                                    "example": "photo.png"
                                 }
                             },
                             "type": "object"
                         }
                     }
                 }
-            }
-        },
-        "securitySchemes": {
-            "bearerAuth": {
-                "type": "http",
-                "name": "bearerAuth",
-                "in": "header",
-                "bearerFormat": "JWT",
-                "scheme": "bearer"
             }
         }
     }
