@@ -51,7 +51,7 @@ class Notebook extends Model
         $notebook->phone = $attributes["phone"];
         $notebook->email = $attributes["email"];
         $notebook->birthdate = $attributes["birthdate"];
-        $notebook->image = $attributes["image"];
+        $notebook->image = "/uploads/" . $attributes["image"];
         $notebook->save();
         return $notebook;
     }
