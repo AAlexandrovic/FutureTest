@@ -20,6 +20,7 @@ DB_USERNAME=root
 DB_PASSWORD=root 
 
 Пример этого файла в .env.examples нужно только прописать параметры
+
 3. В контейнере project_app запустить laravel миграции командой php artisan migrate:refresh
 4. прописать адрес localhosta в файле config/l5-swagger.php
 5. Выполнить команду php artisan l5-swagger:generate
